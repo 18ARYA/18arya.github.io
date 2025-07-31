@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +13,9 @@
   <h2 class="w3-text-light-grey">Contact Me</h2>
   <hr style="width:200px" class="w3-opacity">
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="w3-panel w3-red">
-        {% for category, message in messages %}
-          <p>{{ message }}</p>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
+  
+    
+  
 
   <div class="w3-section">
     <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Delhi, India</p>
@@ -30,7 +25,7 @@
 
   <p>Let's get in touch. Book your appointment:</p>
 
-  <form action="{{ url_for('submit_user_data') }}" method="POST">
+  <form action="/submit" method="POST">
     <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="name"></p>
     <p><input class="w3-input w3-padding-16" type="email" placeholder="Email" required name="email"></p>
     <p><input class="w3-input w3-padding-16" type="number" placeholder="Age" required name="age"></p>
