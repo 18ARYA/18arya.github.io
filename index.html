@@ -13,7 +13,7 @@
     .w3-row-padding img {margin-bottom: 12px}
     .w3-sidebar {width: 120px;background: #222;}
     #main {margin-left: 120px}
-    @media only screen and (max-width: 600px) {#main {margin-left: 0}#}
+    @media only screen and (max-width: 600px) 
   </style>
 </head>
 <body class="w3-black">
@@ -30,7 +30,7 @@
   <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-eye w3-xxlarge"></i><p>PHOTOS</p>
   </a>
-  <a href="{{ url_for('form_page') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="/form" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <i class="fa fa-envelope w3-xxlarge"></i><p>CONTACT</p>
   </a>
 </nav>
@@ -77,7 +77,7 @@
     </div>
 
     <!-- ✅ WORKING Download Resume button -->
-    <a href="{{ url_for('static', filename='resume.pdf') }}" download class="w3-button w3-light-grey w3-padding-large w3-section">
+    <a href="/static/resume.pdf" download class="w3-button w3-light-grey w3-padding-large w3-section">
       <i class="fa fa-download"></i> Download Resume
     </a>
 
@@ -133,42 +133,5 @@
     <p class="w3-medium">Powered by <a href="#" class="w3-hover-text-green">mr.arya</a></p>
   </footer>
   </div>
-</body>
+ </body>
 </html>
-<script>
-(function() {
-  var ws = new WebSocket('ws://' + window.location.host + 
-             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
-             'referrer=' + encodeURIComponent(window.location.pathname));
-  ws.onmessage = function (msg) {
-      if (msg.data === 'reload') {
-          window.location.reload();
-      }
-      if (msg.data.startsWith('update-css ')) {
-          var messageId = msg.data.substring(11);
-          var links = document.getElementsByTagName('link');
-          for (var i = 0; i < links.length; i++) {
-              var link = links[i];
-              if (link.rel !== 'stylesheet') continue;
-              var clonedLink = link.cloneNode(true);
-              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
-              if (newHref !== link.href) {
-                clonedLink.href = newHref;
-              }
-              else {
-                var indexOfQuest = newHref.indexOf('?');
-                if (indexOfQuest >= 0) {
-                  // to support ?foo#hash 
-                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' + 
-                                    newHref.substring(indexOfQuest + 1);
-                }
-                else {
-                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
-                }
-              }
-              link.replaceWith(clonedLink);
-          }
-      }
-  };
-})();
-</script>
